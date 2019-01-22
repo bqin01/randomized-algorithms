@@ -32,20 +32,21 @@ int main(void){
       multi_counter = 0;
       struct Fermat f = Fermat.new(i);
       start = clock();
-      for(int k = 0; k < K; k++){
-        long long testK = (rand()%(i-2))+2;
-        if(f.fastExp(&f,testK,i-1) != 1){
-          wasPrime = false;
-          break;
+      for(int l = 0; l < 100; l++){
+        for(int k = 0; k < K; k++){
+          long long testK = (rand()%(i-2))+2;
+          if(f.fastExp(&f,testK,i-1) != 1){
+            wasPrime = false;
+            break;
+          }
         }
       }
       end = clock();
       if(wasPrime==true){
         printf("%lld is prime!\n",i);
-        printf("The time required to calculate this was %f.\n",((double)(end-start))/CLOCKS_PER_SEC);
-        printf("This operation took %d multiplications.\n",multi_counter);
+        printf("The time required to calculate this was %f.\n",((double)(end-start))/CLOCKS_PER_SEC/100);
+        printf("This operation took %d multiplications.\n",multi_counter/100);
         i *= i;
       }
     }
-    printf("done");
 }
