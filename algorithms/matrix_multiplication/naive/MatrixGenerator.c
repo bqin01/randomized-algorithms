@@ -46,6 +46,7 @@ static int* squareXVector(int** A, int* B, int n){
  * Precondition: Both A and B are this->n by this->n matrices.
  **/
 static int **multiply(struct MatrixGenerator *this, int** A, int** B){
+  printf("Innit\n");
   int ** answer = malloc(sizeof(int*) * this->n);
   for(int i = 0; i < this->n; i++){
     answer[i] = malloc(sizeof(int*) * this->n);

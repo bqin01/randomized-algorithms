@@ -25,7 +25,9 @@ static struct Fermat new(long long num){
 const struct FermatClass Fermat={.new=&new};
 
 int main(void){
+    FILE *file = fopen("./fermat_data.csv","w");
     srand(time(0));
+    printf("%d\n",CLOCKS_PER_SEC);
     clock_t start, end;
     for(long long i = 3; i <= N; i++){
       bool wasPrime = true;
@@ -42,11 +44,13 @@ int main(void){
         }
       }
       end = clock();
+      double timeElapsed = ((double)(end-start))/CLOCKS_PER_SEC/100;
       if(wasPrime==true){
-        printf("%lld is prime!\n",i);
-        printf("The time required to calculate this was %f.\n",((double)(end-start))/CLOCKS_PER_SEC/100);
-        printf("This operation took %d multiplications.\n",multi_counter/100);
-        i *= i;
+        fprintf(file,"%lld,%lf,true\n",i,timeElapsed);
+        i += i;
+      }else{
+        //fprintf(file,"%lld,%lf,false\n",i,timeElapsed);
       }
     }
+    fclose(file);
 }

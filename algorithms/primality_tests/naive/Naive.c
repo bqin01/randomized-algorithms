@@ -25,16 +25,18 @@ static struct Naive new(long long num){
 const struct NaiveClass Naive={.new=&new};
 
 int main(void){
+  FILE *file = fopen("./naive_data.csv","w");
   srand(time(0));
   clock_t start, end;
   for(long long i = 10; i <= N; i++){
     struct Naive n = Naive.new(i);
     start = clock();
     if(checkPrime(&n)){
-      printf("%lld is prime!\n",i);
-      printf("The time required to calculate this was %f.\n",((double)(end-start))/CLOCKS_PER_SEC);
-      i *= i;
+      for(int j = 0; j < 100; j++) checkPrime(&n);
+      end = clock();
+      double timeElapsed = (double)(end-start)/CLOCKS_PER_SEC/100;
+      fprintf(file,"%lld,%lf\n",i,timeElapsed);
+      i += i;
     }
-    end = clock();
   }
 }
